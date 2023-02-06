@@ -1,0 +1,187 @@
+---
+title: Nextra를 이용해 블로그 만들기
+date: 2023/02/07
+description: Next.js와 MDX를 이용해 아름다운 사이트를 만들 수 있다.
+tag: blog, nextra
+author: You
+---
+
+# Nextra를 이용해 블로그 만들기
+
+얼마전 Gatsby를 이용해 Git 블로그를 만들었다. <br/>
+템플릿을 이용해 만들었는데, 맘에 안드는 스타일을 바꾸기 어려웠다. <br/>
+그러다 우연히 Nextra를 알게 되었고 이를 이용해 블로그를 만들어 보았다.
+
+## Nextra란?
+
+> Nextra is a framework on top of Next.js, that lets you build content focused websites. <br/>
+> It has all the great features from Next.js, plus extra power to create Markdown-based content with ease.
+
+Next.js와 MDX를 합쳐놓은 프레임워크으로 콘텐츠 중심 웹사이트를 구축할 수 있다.
+
+## 테마를 이용해 빠르게 시작하기
+
+![](/images/start_blog_with_nextra/01.png)
+
+nextra에서는 현재 Documentation과 Blog 두 개의 테마를 제공하고 있다. <br/>
+이 중 Blog 테마를 이용하였다.
+
+### Install
+
+Next.js , React , Nextra 및 Nextra Blog Theme 를 설치한다.
+
+```cmd
+yarn add next react react-dom nextra nextra-theme-blog
+```
+
+### Next.js 구성 추가
+
+프로젝트 루트 디렉터리에 `next.config.js`를 만든다.
+
+```js
+const withNextra = require("nextra")({
+  theme: "nextra-theme-blog",
+  themeConfig: "./theme.config.jsx",
+});
+
+module.exports = withNextra();
+
+// If you have other Next.js configurations, you can pass them as the parameter:
+// module.exports = withNextra({ /* other next.js config */ })
+```
+
+### 블로그 테마 구성 만들기
+
+프로젝트 루트 디렉터리에 `theme.config.jsx` 파일을 만든다. <br/>
+해당 파일은 Nextra 블로그 테마를 구성하는데 사용된다.
+
+```jsx
+const YEAR = new Date().getFullYear();
+
+export default {
+  footer: (
+    <small style={{ display: "block", marginTop: "8rem" }}>
+      <time>{YEAR}</time> © Yewon-Noh.
+      <a href="/feed.xml">RSS</a>
+      <style jsx>{`
+        a {
+          float: right;
+        }
+        @media screen and (max-width: 480px) {
+          article {
+            padding-top: 2rem;
+            padding-bottom: 4rem;
+          }
+        }
+      `}</style>
+    </small>
+  ),
+};
+```
+
+### 준비 완료!
+
+이제 `yarn start` 명령어를 통해 시작할 수 있다.
+
+해당 명령어를 사용하기 위해서는 `package.json`에 아래와 같이 설정을 추가해야한다.
+
+```json
+"scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+}
+```
+
+여기까지 수행하면 Nextra를 사용하기 위한 기본 구성을 마칠 수 있다. <br/>
+이제 간단한 글을 올려볼 수 있다.
+
+### Navbar Items
+
+`pages` 폴더에 `_meta.json`를 생성하여 페이지에 대한 구성을 정의할 수 있다. <br/>
+
+`"type": "page"`를 사용하면 사이드바가 아닌 내비케이션 바에 특수 페이지로 표시된다. <br/>
+즉, 여러 개의 하위문서 또는 연락처와 같은 특수 페이지나 링크를 가질 수 있게 된다.
+
+About과 Posts 두 개의 메뉴를 갖도록 구성할 수 있다.
+
+```json
+{
+  "index": {
+    "title": "About",
+    "type": "page"
+  },
+  "posts": {
+    "title": "Posts",
+    "type": "page"
+  }
+}
+```
+
+### About 글 작성
+
+Nextra를 사용하면 pages 디렉토리 안의 모든 파일이 MDX로 렌더링 된다. <br/>
+즉 페이지에 표시될 글은 `.mdx` 파일에 Markdown으로 작성하면 된다.
+
+예로 About 페이지에 띄울 글을 아래와 같이 작성할 수 있다.
+
+```mdx
+---
+type: page
+title: About
+date: 2023-02-07
+---
+
+# Your Name
+
+Hello! I'm Yewon Noh
+
+- 💻 Junior Developer, interested in Web and App.
+- 📈 I mainly use Spring, and I enjoy learning new technology.
+
+---
+
+- GitHub [@yewon-Noh](https://github.com/yewon-Noh)
+- Velog [@yewo2nn16](https://velog.io/@yewo2nn16)
+```
+
+### Posts
+
+여러 개의 하위 문서를 가질 수도 있다. <br/>
+`posts` 폴더 아래에 MDX 파일을 추가하면 된다.
+
+```mdx
+---
+title: Hello!
+date: 2023/02/07
+description: Hello!
+tag: hello, nextra
+author: You
+---
+
+# Hello!
+
+Hello, Nextra!
+```
+
+글의 목록을 띄우기 위해서는 `posts` 폴더에 `index.mdx`를 추가해주면 된다.
+
+```mdx
+---
+type: posts
+title: Posts
+date: 2023-02-07
+---
+
+# Posts
+```
+
+---
+
+이렇게 Nextra를 이용해 간단하게 블로그를 만들 수 있다.
+
+자세한 내용은 아래의 글을 참고할 수도 있다.
+
+- [Nextra Guide](https://nextra.site/docs)
+- [nextjs-portfolio-starter](https://github.com/vercel/nextjs-portfolio-starter)
