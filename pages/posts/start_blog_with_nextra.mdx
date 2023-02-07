@@ -21,7 +21,7 @@ Next.js와 MDX를 합쳐놓은 프레임워크으로 콘텐츠 중심 웹사이�
 
 ## 테마를 이용해 빠르게 시작하기
 
-![](/images/start_blog_with_nextra/01.png)
+![image](/images/start_blog_with_nextra/01.png)
 
 nextra에서는 현재 Documentation과 Blog 두 개의 테마를 제공하고 있다. <br/>
 이 중 Blog 테마를 이용하였다.
@@ -146,7 +146,7 @@ Hello! I'm Yewon Noh
 - Velog [@yewo2nn16](https://velog.io/@yewo2nn16)
 ```
 
-### Posts
+### Posts 글 작성
 
 여러 개의 하위 문서를 가질 수도 있다. <br/>
 `posts` 폴더 아래에 MDX 파일을 추가하면 된다.
@@ -185,3 +185,82 @@ date: 2023-02-07
 
 - [Nextra Guide](https://nextra.site/docs)
 - [nextjs-portfolio-starter](https://github.com/vercel/nextjs-portfolio-starter)
+
+---
+
+## SEO 적용하기
+
+`next-seo`를 사용하여 손쉽게 seo를 구현할 수 있다.
+
+### Install 
+
+next-seo 를 설치한다.
+
+```cmd
+yarn add next-seo
+```
+
+### DefaultSeo 설정
+
+`_app.jsx`에 `DefaultSeo`를 설정할 수 있다. <br/>
+속성에 대해서는 [여기서](https://github.com/garmeeh/next-seo) 확인할 수 있다.
+
+```jsx
+import { DefaultSeo } from "next-seo";
+
+const DEFAULT_SEO = {
+    title: "yewonlog",
+    description: "yewon-Noh's Tech Blog",
+    canonical: "https://www.carrotins.com",
+    openGraph: {
+      type: "website",
+      locale: "ko_KR",
+      url: "https://yewonlog.vercel.app/",
+      title: "yewonlog - Yewon-Noh's Tech Blog",
+      siteName: "yewonlog",
+      images: [
+        {
+          url: "/images/image.png",
+          width: 285,
+          height: 167,
+          alt: "이미지"
+        }
+      ]
+    },
+    twitter: {
+        handle: '@handle',
+        site: '@site',
+        cardType: 'summary_large_image',
+    },
+  };
+
+export default function Nextra({ Component, pageProps }) {
+    return (
+        <>
+            <DefaultSeo {...DEFAULT_SEO} />
+        </>
+    )
+}
+```
+
+- 참고 문서 : [https://kyounghwan01.github.io/blog/React/next/next-seo/](https://kyounghwan01.github.io/blog/React/next/next-seo/)
+
+## 검색 엔진에 등록하기
+
+블로그를 만들면 바로 검색 엔진에 표시되는 것이 아니라 크롤링을 요청해야 한다.<br/>
+
+- [Google Search Console](https://search.google.com/search-console/about)
+- [Naver Search Advisor](https://searchadvisor.naver.com/)
+
+소유권을 확인하기 위한 방법으로는 두가지가 있다.
+
+1. 제공되는 HTML 파일을 프로젝트에 넣는다.
+2. 사이트 홈페이지에 메타태그를 추가한다.
+
+![image](/images/start_blog_with_nextra/02.png)
+
+권장하는 방법인 1번 방법을 사용해서 설정했다. <br/>
+HTML 파일을 다운로드 받아 `public` 폴더 아래에 추가해주었다.
+
+소유권 확인을 마치고 하루 이틀 정도 지나면 Google에서 검색 결과로 확인할 수 있다.
+
