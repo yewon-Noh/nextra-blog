@@ -13,7 +13,7 @@ const DEFAULT_SEO = {
       locale: "ko_KR",
       url: "https://yewonlog.vercel.app/",
       title: "yewonlog - Yewon-Noh's Tech Blog",
-      site_name: "yewonlog",
+      siteName: "yewonlog",
       images: [
         {
           url: "/images/image.png",
