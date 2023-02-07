@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "next": "^13.1.6",
+    "next-seo": "^5.15.0",
     "nextra": "^2.2.14",
     "nextra-theme-blog": "^2.2.14",
     "react": "^18.2.0",
