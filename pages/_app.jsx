@@ -4,6 +4,8 @@ import Head from 'next/head'
 import '../styles/main.css'
 import { DefaultSeo } from "next-seo";
 
+import { Analytics } from '@vercel/analytics/react';
+
 const DEFAULT_SEO = {
     title: "yewonlog",
     description: "yewon-Noh's Tech Blog",
@@ -50,6 +52,7 @@ export default function Nextra({ Component, pageProps }) {
                 />
             </Head>
             <Component {...pageProps} />
+            <Analytics />
         </>
     )
 }
