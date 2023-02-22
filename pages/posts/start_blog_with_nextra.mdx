@@ -264,3 +264,41 @@ HTML 파일을 다운로드 받아 `public` 폴더 아래에 추가해주었다.
 
 소유권 확인을 마치고 하루 이틀 정도 지나면 Google에서 검색 결과로 확인할 수 있다.
 
+## Vercel Analytics로 방문자 수 집계하기
+
+이 블로그는 [vercel](https://vercel.com/)를 이용해 배포하고 있다.
+
+구글 애널리틱스와 같이 방문자 수를 집계하기 위한 설정을 해주었다.
+
+### Install 
+
+@vercel/analytics 패키지를 설치한다.
+
+```cmd
+yarn add @vercel/analytics
+```
+
+### App에 Analytics 컴포넌트 추가
+
+pages/_app.jsx 파일에 아래를 추가해준다.
+
+```jsx
+import { Analytics } from '@vercel/analytics/react';
+
+export default function Nextra({ Component, pageProps }) {
+    return (
+        <>
+            ...
+            <Component {...pageProps} />
+            <Analytics />
+        </>
+    )
+}
+```
+
+수정한 코드를 배포하면 Vercel의 Analytics 탭에서 확인할 수 있다.
+
+![image](/images/start_blog_with_nextra/03.png)
+
+
+- 참고 문서 : [https://vercel.com/docs/concepts/analytics/audiences/quickstart](https://vercel.com/docs/concepts/analytics/audiences/quickstart)
